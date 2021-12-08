@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="Main" cloudDestinationProperty="Main" scrollableY="false" layout="BorderLayout" borderLayoutAbsoluteCenter="false" title="CassetteFlow Mobile" >
+  <component type="Tabs" name="Tabs1" cloudDestinationProperty="Tabs1" >
+    <layoutConstraint value="Center" />
+    <custom name="titles" type="java.lang.String" array="true" dimensions="1" >
+      <str>Track</str>
+      <str>EQ+</str>
+      <str>R2R</str>
+      <str>Settings</str>
+    </custom>
+    <component type="Container" name="Container7" tabTitle="Track" cloudDestinationProperty="Container7" layout="BorderLayout" borderLayoutAbsoluteCenter="false" >
+      <component type="Container" name="Container5" cloudDestinationProperty="Container5" layout="BoxLayout" boxLayoutAxis="Y" >
+        <layoutConstraint value="North" />
+        <component type="Button" name="connectButton" cloudDestinationProperty="connectButton" text="CONNECT" >
+        </component>
+        <component type="Label" name="tapeIDLabel" cloudDestinationProperty="tapeIDLabel" text="TAPE ID: 0000A" >
+        </component>
+      </component>
+      <component type="Container" name="Container6" cloudDestinationProperty="Container6" layout="BoxLayout" boxLayoutAxis="Y" >
+        <layoutConstraint value="South" />
+        <component type="Label" name="trackLabel" cloudDestinationProperty="trackLabel" text="CURRENT TRACK INFORMATION" >
+        </component>
+        <component type="TextArea" name="trackTextArea" cloudBoundProperty="text" cloudDestinationProperty="trackTextArea" uiid="TextArea" text="Playing ????" editable="false" rows="7" >
+        </component>
+      </component>
+      <component type="TextArea" name="tracksTextArea" cloudBoundProperty="text" cloudDestinationProperty="TextArea" uiid="Label" text="Cassette ID and Track List Goes here" editable="false" >
+        <layoutConstraint value="Center" />
+      </component>
+    </component>
+    <component type="Container" name="Container" tabTitle="EQ+" cloudDestinationProperty="Container" layout="BoxLayout" boxLayoutAxis="Y" >
+      <component type="Label" name="Label4" cloudDestinationProperty="Label4" text="Select EQ Presests" >
+      </component>
+      <component type="RadioButton" name="RadioButton" cloudDestinationProperty="RadioButton" text="Flat/Off" group="eqGroup" selected="true" >
+      </component>
+      <component type="RadioButton" name="RadioButton1" cloudDestinationProperty="RadioButton1" text="Acoustic" group="eqGroup" >
+      </component>
+      <component type="RadioButton" name="RadioButton2" cloudDestinationProperty="RadioButton2" text="Electronic " group="eqGroup" >
+      </component>
+      <component type="RadioButton" name="RadioButton3" cloudDestinationProperty="RadioButton3" text="World (Latin/Reggae)" group="eqGroup" >
+      </component>
+      <component type="RadioButton" name="RadioButton4" cloudDestinationProperty="RadioButton4" text="Classical " group="eqGroup" >
+      </component>
+      <component type="RadioButton" name="RadioButton5" cloudDestinationProperty="RadioButton5" text="Pop" group="eqGroup" >
+      </component>
+      <component type="RadioButton" name="RadioButton6" cloudDestinationProperty="RadioButton6" text="Rock" group="eqGroup" >
+      </component>
+      <component type="RadioButton" name="RadioButton7" cloudDestinationProperty="RadioButton7" text="Bass Boost" group="eqGroup" >
+      </component>
+      <component type="Label" name="Label6" cloudDestinationProperty="Label6" text=" " >
+      </component>
+      <component type="OnOffSwitch" name="OnOffSwitch" cloudDestinationProperty="OnOffSwitch" >
+        <custom name="value" type="java.lang.Boolean" value="true" />
+        <custom name="on" type="java.lang.String" value="DECODE ON" />
+        <custom name="off" type="java.lang.String" value="DECODE OFF" />
+      </component>
+      <component type="Label" name="Label5" cloudDestinationProperty="Label5" text="SOUND OUTPUT" >
+      </component>
+      <component type="Container" name="Container8" cloudDestinationProperty="Container8" layout="GridLayout" gridLayoutRows="3" gridLayoutColumns="2" >
+        <component type="RadioButton" name="RadioButton8" cloudDestinationProperty="RadioButton8" text="SPEAKER" group="speakerGroup" >
+        </component>
+        <component type="RadioButton" name="RadioButton9" cloudDestinationProperty="RadioButton9" text="BLUETOOTH" group="speakerGroup" >
+        </component>
+        <component type="Label" name="Label7" cloudDestinationProperty="Label7" text="BLUETOOTH SPEAKER" >
+        </component>
+        <component type="ComboBox" name="ComboBox" cloudDestinationProperty="ComboBox" >
+          <stringItem value="BT Speaker 1" />
+          <stringItem value="BT Speaker 2" />
+          <stringItem value="BT Speaker 3" />
+        </component>
+        <component type="Button" name="Button" cloudDestinationProperty="Button" text="VOL-" >
+        </component>
+        <component type="Button" name="Button2" cloudDestinationProperty="Button2" text="VOL+" >
+        </component>
+      </component>
+    </component>
+    <component type="Container" name="Container1" tabTitle="R2R" cloudDestinationProperty="Container1" layout="BoxLayout" boxLayoutAxis="Y" >
+      <component type="Label" name="Label" cloudDestinationProperty="Label" text="PLEASE SELECT REMOTE DEVICE" >
+      </component>
+      <component type="Picker" name="addressPicker" cloudDestinationProperty="addressPicker" text="BT Device" >
+      </component>
+      <component type="Label" name="Label2" cloudDestinationProperty="Label2" text="REEL TO REEL DECK" >
+      </component>
+      <component type="ComboBox" name="r2rComboBox" cloudDestinationProperty="r2rComboBox" >
+        <stringItem value="Teac A 2300SD" />
+        <stringItem value="Akia GX-77" />
+        <stringItem value="Generic Active-Low Logic" />
+      </component>
+      <component type="Container" name="Container4" cloudDestinationProperty="Container4" layout="GridLayout" gridLayoutRows="8" gridLayoutColumns="1" >
+        <component type="Label" name="r2rStatusLabel" cloudDestinationProperty="r2rStatusLabel" text="STATUS: NOT CONNECTED" verticalAlignment="4" >
+        </component>
+      </component>
+      <component type="Container" name="Container2" cloudDestinationProperty="Container2" layout="GridLayout" gridLayoutRows="3" gridLayoutColumns="3" >
+        <component type="Button" name="playBackButton" cloudDestinationProperty="playBackButton" text="&lt; PLAY" >
+        </component>
+        <component type="Button" name="Button1" cloudDestinationProperty="Button1" text="" >
+        </component>
+        <component type="Button" name="playForwardButton" cloudDestinationProperty="playForwardButton" text="PLAY &gt;" >
+        </component>
+        <component type="Button" name="revButton" cloudDestinationProperty="Button3" text="REV" >
+        </component>
+        <component type="Button" name="stopButton" cloudDestinationProperty="Button4" text=" STOP" >
+        </component>
+        <component type="Button" name="ffButton" cloudDestinationProperty="Button5" text="FF" >
+        </component>
+        <component type="Button" name="recButton" cloudDestinationProperty="Button6" text="REC" >
+        </component>
+        <component type="Button" name="Button7" cloudDestinationProperty="Button7" text=" " >
+        </component>
+        <component type="Button" name="pauseButton" cloudDestinationProperty="Button8" text="PAUSE" >
+        </component>
+      </component>
+    </component>
+    <component type="Container" name="Container3" tabTitle="Settings" cloudDestinationProperty="Container3" layout="BoxLayout" boxLayoutAxis="Y" >
+      <component type="Label" name="Label11" cloudDestinationProperty="Label11" uiid="Label" text="ABOUT" >
+      </component>
+      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.2.6 (12/07/2021)" >
+      </component>
+      <component type="Label" name="Label1" cloudDestinationProperty="Label1" uiid="Label" text="CASSETTEFLOW DEVICE ADDRESS" >
+      </component>
+      <component type="TextField" name="cfAddressTextField" cloudBoundProperty="text" cloudDestinationProperty="lyraTAddressTextField" text="http://192.168.1.154:8192" >
+      </component>
+      <component type="Container" name="Container9" cloudDestinationProperty="Container9" layout="GridLayout" gridLayoutRows="1" gridLayoutColumns="2" >
+        <component type="Label" name="Label3" cloudDestinationProperty="Label3" text="OUTPUT CONSOLE:" >
+        </component>
+        <component type="Button" name="clearButton" cloudDestinationProperty="clearButton" text="CLEAR" >
+        </component>
+      </component>
+      <component type="TextArea" name="consoleTextArea" cloudBoundProperty="text" cloudDestinationProperty="consoleTextArea" text="Console:" editable="false" rows="15" >
+      </component>
+    </component>
+  </component>
+</component>
