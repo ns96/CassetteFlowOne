@@ -26,7 +26,9 @@ public class CassetteFlowUtil {
             
             ArrayList<String> mp3Ids = new ArrayList<>();
             for (int i = 1; i < sa.length; i++) {
-                mp3Ids.add(sa[i]);
+                if(!sa[i].isEmpty()) {
+                    mp3Ids.add(sa[i]);
+                }
             }
 
             remoteDB.put(key, mp3Ids);

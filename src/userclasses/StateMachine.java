@@ -307,8 +307,10 @@ public class StateMachine extends StateMachineBase {
             
             // check to make sure we have valid line, by seeing if we can
             // convert total time string to integer
+            String tapeCounter = "????";
             try {
-                Integer.parseInt(sa2[4]);
+                int seconds = Integer.parseInt(sa2[4]);
+                tapeCounter = CassetteFlowUtil.getTimeString(seconds);
             } catch(Exception ex) {
                 dataErrors++;
                 print("\nInvalid Data: " + data, true);
@@ -340,7 +342,7 @@ public class StateMachine extends StateMachineBase {
             // get the information for this track
             MP3Info mp3Info = mp3DB.get(sa2[2]);
             String mp3LengthString = "????";
-            
+             
             if(mp3Info != null) {
                 mp3Name = mp3Info.getName();
                 mp3LengthString = CassetteFlowUtil.padLeftZeros("" + mp3Info.getLength(), 4);
@@ -350,7 +352,7 @@ public class StateMachine extends StateMachineBase {
             }
             
             String playTime = sa2[3] + "/" + mp3LengthString;
-            String totalTimeString = "Tape Counter: " + CassetteFlowUtil.padLeftZeros(sa2[4], 4);
+            String totalTimeString = "Tape Counter: " + CassetteFlowUtil.padLeftZeros(sa2[4], 4) + " (" + tapeCounter + ")";
             String errorString = "Data Errors: " + dataErrors;
                     
             trackInfo = "[" + sa2[1] +"] " + mp3Name + "\nPlaytime: " + playTime + "\n" + totalTimeString + "\n" + errorString;

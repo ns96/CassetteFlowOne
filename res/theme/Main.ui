@@ -31,21 +31,21 @@
     <component type="Container" name="Container" tabTitle="EQ+" cloudDestinationProperty="Container" layout="BoxLayout" boxLayoutAxis="Y" >
       <component type="Label" name="Label4" cloudDestinationProperty="Label4" text="Select EQ Presests" >
       </component>
-      <component type="RadioButton" name="RadioButton" cloudDestinationProperty="RadioButton" text="Flat/Off" group="eqGroup" selected="true" >
+      <component type="RadioButton" name="RadioButton" cloudDestinationProperty="RadioButton" text="FLAT/OFF" group="eqGroup" selected="true" >
       </component>
-      <component type="RadioButton" name="RadioButton1" cloudDestinationProperty="RadioButton1" text="Acoustic" group="eqGroup" >
+      <component type="RadioButton" name="RadioButton1" cloudDestinationProperty="RadioButton1" text="ACOUSTIC" group="eqGroup" >
       </component>
-      <component type="RadioButton" name="RadioButton2" cloudDestinationProperty="RadioButton2" text="Electronic " group="eqGroup" >
+      <component type="RadioButton" name="RadioButton2" cloudDestinationProperty="RadioButton2" text="ELECTRONIC " group="eqGroup" >
       </component>
-      <component type="RadioButton" name="RadioButton3" cloudDestinationProperty="RadioButton3" text="World (Latin/Reggae)" group="eqGroup" >
+      <component type="RadioButton" name="RadioButton3" cloudDestinationProperty="RadioButton3" text="WORLD (LATIN/REGGAE)" group="eqGroup" >
       </component>
-      <component type="RadioButton" name="RadioButton4" cloudDestinationProperty="RadioButton4" text="Classical " group="eqGroup" >
+      <component type="RadioButton" name="RadioButton4" cloudDestinationProperty="RadioButton4" text="CLASSICAL " group="eqGroup" >
       </component>
-      <component type="RadioButton" name="RadioButton5" cloudDestinationProperty="RadioButton5" text="Pop" group="eqGroup" >
+      <component type="RadioButton" name="RadioButton5" cloudDestinationProperty="RadioButton5" text="POP" group="eqGroup" >
       </component>
-      <component type="RadioButton" name="RadioButton6" cloudDestinationProperty="RadioButton6" text="Rock" group="eqGroup" >
+      <component type="RadioButton" name="RadioButton6" cloudDestinationProperty="RadioButton6" text="ROCK" group="eqGroup" >
       </component>
-      <component type="RadioButton" name="RadioButton7" cloudDestinationProperty="RadioButton7" text="Bass Boost" group="eqGroup" >
+      <component type="RadioButton" name="RadioButton7" cloudDestinationProperty="RadioButton7" text="BASS BOOST" group="eqGroup" >
       </component>
       <component type="Label" name="Label6" cloudDestinationProperty="Label6" text=" " >
       </component>
@@ -114,11 +114,11 @@
     <component type="Container" name="Container3" tabTitle="Settings" cloudDestinationProperty="Container3" layout="BoxLayout" boxLayoutAxis="Y" >
       <component type="Label" name="Label11" cloudDestinationProperty="Label11" uiid="Label" text="ABOUT" >
       </component>
-      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.2.6 (12/07/2021)" >
+      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.2.9 (12/09/2021)" >
       </component>
       <component type="Label" name="Label1" cloudDestinationProperty="Label1" uiid="Label" text="CASSETTEFLOW DEVICE ADDRESS" >
       </component>
-      <component type="TextField" name="cfAddressTextField" cloudBoundProperty="text" cloudDestinationProperty="lyraTAddressTextField" text="http://192.168.1.154:8192" >
+      <component type="TextField" name="cfAddressTextField" cloudBoundProperty="text" cloudDestinationProperty="lyraTAddressTextField" text="http://192.168.1.205" >
       </component>
       <component type="Container" name="Container9" cloudDestinationProperty="Container9" layout="GridLayout" gridLayoutRows="1" gridLayoutColumns="2" >
         <component type="Label" name="Label3" cloudDestinationProperty="Label3" text="OUTPUT CONSOLE:" >
@@ -126,7 +126,7 @@
         <component type="Button" name="clearButton" cloudDestinationProperty="clearButton" text="CLEAR" >
         </component>
       </component>
-      <component type="TextArea" name="consoleTextArea" cloudBoundProperty="text" cloudDestinationProperty="consoleTextArea" text="Console:" editable="false" rows="15" >
+      <component type="TextArea" name="consoleTextArea" cloudBoundProperty="text" cloudDestinationProperty="consoleTextArea" uiid="Label" text="Console:" editable="false" rows="15" >
       </component>
     </component>
   </component>
