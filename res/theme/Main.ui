@@ -56,7 +56,7 @@
       </component>
       <component type="Label" name="Label5" cloudDestinationProperty="Label5" text="SOUND OUTPUT" >
       </component>
-      <component type="Container" name="Container8" cloudDestinationProperty="Container8" layout="GridLayout" gridLayoutRows="3" gridLayoutColumns="2" >
+      <component type="Container" name="Container8" cloudDestinationProperty="Container8" layout="GridLayout" gridLayoutRows="2" gridLayoutColumns="2" >
         <component type="RadioButton" name="RadioButton8" cloudDestinationProperty="RadioButton8" text="SPEAKER" group="speakerGroup" >
         </component>
         <component type="RadioButton" name="RadioButton9" cloudDestinationProperty="RadioButton9" text="BLUETOOTH" group="speakerGroup" >
@@ -68,9 +68,13 @@
           <stringItem value="BT Speaker 2" />
           <stringItem value="BT Speaker 3" />
         </component>
-        <component type="Button" name="Button" cloudDestinationProperty="Button" text="VOL-" >
+      </component>
+      <component type="Container" name="Container10" cloudDestinationProperty="Container10" layout="GridLayout" gridLayoutRows="1" gridLayoutColumns="3" >
+        <component type="Button" name="volDownButton" cloudDestinationProperty="Button2" text="VOL-" >
         </component>
-        <component type="Button" name="Button2" cloudDestinationProperty="Button2" text="VOL+" >
+        <component type="Button" name="muteButton" cloudDestinationProperty="muteButton" text="MUTE" >
+        </component>
+        <component type="Button" name="volUpButton" cloudDestinationProperty="Button" text="VOL+" >
         </component>
       </component>
     </component>
@@ -114,11 +118,11 @@
     <component type="Container" name="Container3" tabTitle="Settings" cloudDestinationProperty="Container3" layout="BoxLayout" boxLayoutAxis="Y" >
       <component type="Label" name="Label11" cloudDestinationProperty="Label11" uiid="Label" text="ABOUT" >
       </component>
-      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.2.9 (12/09/2021)" >
+      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.2.13 (01/08/2022)" >
       </component>
       <component type="Label" name="Label1" cloudDestinationProperty="Label1" uiid="Label" text="CASSETTEFLOW DEVICE ADDRESS" >
       </component>
-      <component type="TextField" name="cfAddressTextField" cloudBoundProperty="text" cloudDestinationProperty="lyraTAddressTextField" text="http://192.168.1.205" >
+      <component type="TextField" name="cfAddressTextField" cloudBoundProperty="text" cloudDestinationProperty="lyraTAddressTextField" text="http://192.168.1.154:8192" >
       </component>
       <component type="Container" name="Container9" cloudDestinationProperty="Container9" layout="GridLayout" gridLayoutRows="1" gridLayoutColumns="2" >
         <component type="Label" name="Label3" cloudDestinationProperty="Label3" text="OUTPUT CONSOLE:" >

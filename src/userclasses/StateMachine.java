@@ -14,6 +14,7 @@ import com.codename1.charts.util.ColorUtil;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkManager;
+import com.codename1.io.Preferences;
 import com.codename1.io.Util;
 import com.codename1.location.LocationManager;
 import generated.StateMachineBase;
@@ -63,6 +64,9 @@ public class StateMachine extends StateMachineBase {
     private HashMap<String, ArrayList<String>> tapeDB;
     private boolean connectedCF;
     
+    // store the the url of the lyraT or CF server
+    private String cfAddress;
+    
     // variables that need to updated
     private String tapeID;
     private String trackList;
@@ -70,6 +74,9 @@ public class StateMachine extends StateMachineBase {
     private String mp3Name;
     
     private int  dataErrors;
+    
+    // keep track if we FF or RR on reel to reel
+    private boolean ffOrRewind;
     
     public StateMachine(String resFile) {
         super(resFile);
@@ -106,6 +113,11 @@ public class StateMachine extends StateMachineBase {
         connectedCF = false;
         
         dataErrors = 0;
+        
+        ffOrRewind = false;
+        
+        // set the server preferences
+        cfAddress = Preferences.get("cf.address", "http://192.168.1.154:8192");
     }
     
     /**
@@ -211,6 +223,8 @@ public class StateMachine extends StateMachineBase {
         
         label = findTrackLabel(f);
         label.getStyle().setFgColor(ColorUtil.GREEN);
+        
+        findCfAddressTextField(f).setText(cfAddress);
     }
     
     @Override
@@ -288,6 +302,10 @@ public class StateMachine extends StateMachineBase {
             findTrackTextArea(mainForm).setText("");
         });
         thread.start();
+        
+        // store the CF server
+        cfAddress = baseUrl;
+        Preferences.set("cf.address", cfAddress);
         
         findConnectButton().setText("DISCONNECT");
         connectedCF = true;
@@ -594,32 +612,45 @@ public class StateMachine extends StateMachineBase {
     
     @Override
     protected void onMain_PlayForwardButtonAction(Component c, ActionEvent event) {
+        if(ffOrRewind) {
+            try {
+                sendText("STOP\r\n");
+                Thread.sleep(1500);
+            } catch (InterruptedException ex) { }
+        }
+        
         sendText("PLAY\r\n");
+        ffOrRewind = false;
     }
 
     @Override
     protected void onMain_StopButtonAction(Component c, ActionEvent event) {
         sendText("STOP\r\n");
+        ffOrRewind = false;
     }
 
     @Override
     protected void onMain_RevButtonAction(Component c, ActionEvent event) {
         sendText("REV\r\n");
+        ffOrRewind = true;
     }
 
     @Override
     protected void onMain_FfButtonAction(Component c, ActionEvent event) {
         sendText("FF\r\n");
+        ffOrRewind = true;
     }
 
     @Override
     protected void onMain_RecButtonAction(Component c, ActionEvent event) {
         sendText("REC\r\n");
+        ffOrRewind = false;
     }
 
     @Override
     protected void onMain_PauseButtonAction(Component c, ActionEvent event) {
         sendText("PAUSE\r\n");
+        ffOrRewind = false;
     }
 
     @Override

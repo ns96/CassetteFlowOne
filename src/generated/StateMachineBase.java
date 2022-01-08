@@ -210,6 +210,18 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Container findContainer10(Component root) {
+        return (com.codename1.ui.Container)findByName("Container10", root);
+    }
+
+    public com.codename1.ui.Container findContainer10() {
+        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("Container10", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Container)findByName("Container10", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     public com.codename1.ui.Container findContainer4(Component root) {
         return (com.codename1.ui.Container)findByName("Container4", root);
     }
@@ -354,18 +366,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Button findButton(Component root) {
-        return (com.codename1.ui.Button)findByName("Button", root);
-    }
-
-    public com.codename1.ui.Button findButton() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("Button", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("Button", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.TextField findTextField(Component root) {
         return (com.codename1.ui.TextField)findByName("TextField", root);
     }
@@ -374,6 +374,18 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("TextField", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.TextField)findByName("TextField", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Button findMuteButton(Component root) {
+        return (com.codename1.ui.Button)findByName("muteButton", root);
+    }
+
+    public com.codename1.ui.Button findMuteButton() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("muteButton", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Button)findByName("muteButton", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -438,18 +450,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Button findButton2(Component root) {
-        return (com.codename1.ui.Button)findByName("Button2", root);
-    }
-
-    public com.codename1.ui.Button findButton2() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("Button2", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("Button2", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.Button findButton7(Component root) {
         return (com.codename1.ui.Button)findByName("Button7", root);
     }
@@ -474,6 +474,18 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
+    public com.codename1.ui.Button findVolUpButton(Component root) {
+        return (com.codename1.ui.Button)findByName("volUpButton", root);
+    }
+
+    public com.codename1.ui.Button findVolUpButton() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("volUpButton", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Button)findByName("volUpButton", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
     public com.codename1.components.OnOffSwitch findOnOffSwitch(Component root) {
         return (com.codename1.components.OnOffSwitch)findByName("OnOffSwitch", root);
     }
@@ -482,6 +494,18 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.components.OnOffSwitch cmp = (com.codename1.components.OnOffSwitch)findByName("OnOffSwitch", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.components.OnOffSwitch)findByName("OnOffSwitch", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Button findVolDownButton(Component root) {
+        return (com.codename1.ui.Button)findByName("volDownButton", root);
+    }
+
+    public com.codename1.ui.Button findVolDownButton() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("volDownButton", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Button)findByName("volDownButton", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -987,12 +1011,16 @@ public abstract class StateMachineBase extends UIBuilder {
                 onMain_ComboBoxAction(c, event);
                 return;
             }
-            if("Button".equals(c.getName())) {
-                onMain_ButtonAction(c, event);
+            if("volDownButton".equals(c.getName())) {
+                onMain_VolDownButtonAction(c, event);
                 return;
             }
-            if("Button2".equals(c.getName())) {
-                onMain_Button2Action(c, event);
+            if("muteButton".equals(c.getName())) {
+                onMain_MuteButtonAction(c, event);
+                return;
+            }
+            if("volUpButton".equals(c.getName())) {
+                onMain_VolUpButtonAction(c, event);
                 return;
             }
             if("addressPicker".equals(c.getName())) {
@@ -1100,10 +1128,13 @@ public abstract class StateMachineBase extends UIBuilder {
       protected void onMain_ComboBoxAction(Component c, ActionEvent event) {
       }
 
-      protected void onMain_ButtonAction(Component c, ActionEvent event) {
+      protected void onMain_VolDownButtonAction(Component c, ActionEvent event) {
       }
 
-      protected void onMain_Button2Action(Component c, ActionEvent event) {
+      protected void onMain_MuteButtonAction(Component c, ActionEvent event) {
+      }
+
+      protected void onMain_VolUpButtonAction(Component c, ActionEvent event) {
       }
 
       protected void onMain_AddressPickerAction(Component c, ActionEvent event) {
