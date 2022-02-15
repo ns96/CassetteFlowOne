@@ -24,27 +24,27 @@ public class CassetteFlowUtil {
             String[] sa = Util.split(line, "\t");
             String key = sa[0];
             
-            ArrayList<String> mp3Ids = new ArrayList<>();
+            ArrayList<String> audioIds = new ArrayList<>();
             for (int i = 1; i < sa.length; i++) {
                 if(!sa[i].isEmpty()) {
-                    mp3Ids.add(sa[i]);
+                    audioIds.add(sa[i]);
                 }
             }
 
-            remoteDB.put(key, mp3Ids);
+            remoteDB.put(key, audioIds);
         }
         
         return remoteDB;
     }
     
     /**
-     * Method to create the mp3 db from a String
+     * Method to create the audio db from a String
      * 
      * @param data 
-     * @return Hash map containing the mp3 database 
+     * @return Hash map containing the audio database 
      */
-    public static HashMap<String, MP3Info> createMP3InfoDBFromString(String data) {
-        HashMap<String, MP3Info> remoteDB = new HashMap<>();
+    public static HashMap<String, AudioInfo> createAudioInfoDBFromString(String data) {
+        HashMap<String, AudioInfo> remoteDB = new HashMap<>();
 
         for (String line : Util.split(data, "\n")) {
             String[] sa = Util.split(line, "\t");
@@ -56,8 +56,8 @@ public class CassetteFlowUtil {
                 int bitRate = Integer.parseInt(sa[2]);
                 String filename = StringUtil.replaceFirst(sa[3], "/sdcard/", "");
 
-                MP3Info mp3Info = new MP3Info(filename, id, playtime, playtimeString, bitRate);
-                remoteDB.put(id, mp3Info);
+                AudioInfo audioInfo = new AudioInfo(filename, id, playtime, playtimeString, bitRate);
+                remoteDB.put(id, audioInfo);
             }
         }
         

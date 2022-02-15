@@ -5,7 +5,7 @@ package com.instras;
  * 
  * @author Nathan
  */
-public class MP3Info {
+public class AudioInfo {
     private String hash10C;
     private String filename;
     private int length;
@@ -13,7 +13,7 @@ public class MP3Info {
     private int bitRate;
     private String parentDirectoryName = "";
     
-    public MP3Info(String filename, String hash10C, int length, String lengthAsTime, int bitRate) {
+    public AudioInfo(String filename, String hash10C, int length, String lengthAsTime, int bitRate) {
         this.filename = filename;
         this.hash10C = hash10C;
         this.length = length;

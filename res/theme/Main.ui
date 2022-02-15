@@ -118,7 +118,7 @@
     <component type="Container" name="Container3" tabTitle="Settings" cloudDestinationProperty="Container3" layout="BoxLayout" boxLayoutAxis="Y" >
       <component type="Label" name="Label11" cloudDestinationProperty="Label11" uiid="Label" text="ABOUT" >
       </component>
-      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.2.13 (01/08/2022)" >
+      <component type="TextField" name="TextField" cloudBoundProperty="text" cloudDestinationProperty="TextField" enabled="false" text="Version 0.3.8 (02/15/2022)" >
       </component>
       <component type="Label" name="Label1" cloudDestinationProperty="Label1" uiid="Label" text="CASSETTEFLOW DEVICE ADDRESS" >
       </component>

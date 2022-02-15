@@ -25,7 +25,7 @@ import com.codename1.ui.util.Resources;
 import com.codename1.util.Base64;
 import com.codename1.util.StringUtil;
 import com.instras.CassetteFlowUtil;
-import com.instras.MP3Info;
+import com.instras.AudioInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,12 +39,22 @@ import java.util.Set;
  * @version 0.1 11/29/2021
  */
 public class StateMachine extends StateMachineBase {
+    private String UUID_SERVICE;
+    private String UUID_TX;
+    
     // The Service and RX/TX UUID for the SH-H3 Bluetooth adapter
     // http://www.dsdtech-global.com/2017/07/dsd-tech-sh-h3-bluetooth-dual-mode.html
-    private final String UUID_SERVICE = "0000fee7-0000-1000-8000-00805f9b34fb";
+    private final String SH3_UUID_SERVICE = "0000fee7-0000-1000-8000-00805f9b34fb";
     private final String UUID_RX = "0000ffe1-0000-1000-8000-00805f9b34fb";
-    private final String UUID_TX = "0000ffe1-0000-1000-8000-00805f9b34fb";
-
+    private final String SH3_UUID_TX = "0000ffe1-0000-1000-8000-00805f9b34fb";
+    
+    
+    // used to connecting to the BT21A08 8 channel relay instead
+    // https://www.ebay.com/itm/332053662718
+    private final String BT04_UUID_SERVICE = "0000ffe0-0000-1000-8000-00805f9b34fb";
+    private final String BT04_UUID_TX = "0000ffe2-0000-1000-8000-00805f9b34fb";
+    private boolean useBT04;
+    
     // variables used when connecting to bluetooth device
     private Bluetooth bt;
     private Map devices;
@@ -59,8 +69,8 @@ public class StateMachine extends StateMachineBase {
     
     private boolean readData;
     
-    // stores mp3 and tape information from the cassetteflow device
-    private HashMap<String, MP3Info> mp3DB;
+    // stores mp3/flac and tape information from the cassetteflow device
+    private HashMap<String, AudioInfo> audioDB;
     private HashMap<String, ArrayList<String>> tapeDB;
     private boolean connectedCF;
     
@@ -71,7 +81,7 @@ public class StateMachine extends StateMachineBase {
     private String tapeID;
     private String trackList;
     private String trackInfo;
-    private String mp3Name;
+    private String audioName;
     
     private int  dataErrors;
     
@@ -106,7 +116,7 @@ public class StateMachine extends StateMachineBase {
         tapeID = "N/A";
         trackList = "N/A";
         trackInfo = "N/A";
-        mp3Name = "???";
+        audioName = "???";
         
         // specifify the read data to continue reading from server
         readData = true;
@@ -116,12 +126,19 @@ public class StateMachine extends StateMachineBase {
         
         ffOrRewind = false;
         
+        // set the default BT information for connecting to devices
+        UUID_SERVICE = "";
+        UUID_TX = "";
+        
+        // specify if the BT04-A 8 channel relay is being used
+        useBT04 = false;
+        
         // set the server preferences
         cfAddress = Preferences.get("cf.address", "http://192.168.1.154:8192");
     }
     
     /**
-     * Scan for bluetooth BLE devices, otherwise just add a dummy 
+     * Scan for Bluetooth BLE devices, otherwise just add a dummy 
      */
     protected void scan() {
         try {
@@ -269,7 +286,7 @@ public class StateMachine extends StateMachineBase {
         String infoUrl = baseUrl + "/info";
                 
         String mp3DBString = getDataFromUrl(mp3DBUrl);
-        mp3DB = CassetteFlowUtil.createMP3InfoDBFromString(mp3DBString);
+        audioDB = CassetteFlowUtil.createAudioInfoDBFromString(mp3DBString);
         //System.out.println(mp3DBString + "\n\n");
         
         // load the tape database
@@ -282,7 +299,7 @@ public class StateMachine extends StateMachineBase {
         readData = true;
         trackList = "";
         dataErrors = 0;
-        mp3Name = "???";
+        audioName = "???";
         
         Thread thread = new Thread(() -> {
             while(readData) {
@@ -344,12 +361,12 @@ public class StateMachine extends StateMachineBase {
                 
                 if(tracks != null) {
                     for (int i = 0; i < tracks.size(); i++) {
-                        String mp3Id = tracks.get(i);
-                        MP3Info mp3Info = mp3DB.get(mp3Id);
+                        String audioId = tracks.get(i);
+                        AudioInfo audioInfo = audioDB.get(audioId);
 
                         int trackNum = i + 1;
                         numString = (trackNum < 10) ? "0" + trackNum : "" + trackNum;
-                        String track = numString + ". " + mp3Info;
+                        String track = "[" + numString + "] " + audioInfo;
                         trackList += track + "\n";
                     }
                 } else {
@@ -358,22 +375,22 @@ public class StateMachine extends StateMachineBase {
             }
             
             // get the information for this track
-            MP3Info mp3Info = mp3DB.get(sa2[2]);
-            String mp3LengthString = "????";
+            AudioInfo audioInfo = audioDB.get(sa2[2]);
+            String audioLengthString = "????";
              
-            if(mp3Info != null) {
-                mp3Name = mp3Info.getName();
-                mp3LengthString = CassetteFlowUtil.padLeftZeros("" + mp3Info.getLength(), 4);
+            if(audioInfo != null) {
+                audioName = audioInfo.getName();
+                audioLengthString = CassetteFlowUtil.padLeftZeros("" + audioInfo.getLength(), 4);
             } else {
                 print("\nInvalid Data: " + data, true);
                 dataErrors++;
             }
             
-            String playTime = sa2[3] + "/" + mp3LengthString;
+            String playTime = sa2[3] + "/" + audioLengthString;
             String totalTimeString = "Tape Counter: " + CassetteFlowUtil.padLeftZeros(sa2[4], 4) + " (" + tapeCounter + ")";
             String errorString = "Data Errors: " + dataErrors;
                     
-            trackInfo = "[" + sa2[1] +"] " + mp3Name + "\nPlaytime: " + playTime + "\n" + totalTimeString + "\n" + errorString;
+            trackInfo = "[" + sa2[1] +"] " + audioName + "\nPlaytime: " + playTime + "\n" + totalTimeString + "\n" + errorString;
         }
         
         // update the UI
@@ -410,7 +427,20 @@ public class StateMachine extends StateMachineBase {
         String ss = addressPicker.getSelectedString();
 
         if (ss != null) {
-            String address = StringUtil.tokenize(ss, "||").get(1).trim();
+            java.util.List<String> btList = StringUtil.tokenize(ss, "||");
+            
+            if(btList.get(0).trim().equals("BT04-A")) {
+                UUID_SERVICE = BT04_UUID_SERVICE;
+                UUID_TX = BT04_UUID_TX;
+                useBT04 = true;
+                print("Connecting BT04: " + UUID_SERVICE + " / " + UUID_TX, false);
+            } else {
+                UUID_SERVICE = SH3_UUID_SERVICE;
+                UUID_TX = SH3_UUID_TX;
+                print("Connecting SH3: " + UUID_SERVICE + " / " + UUID_TX, false);
+            }
+            
+            String address = btList.get(1).trim();
             connect(address);
         }
     }
@@ -446,8 +476,9 @@ public class StateMachine extends StateMachineBase {
 
                         Object obj = evt.getSource();
                         print("Bluetooth LE Connected:\n" + obj, true);
+                        
                         discover(); // must be called on Andriod. Won't do anything on ios though
-
+                        
                         connected = true;
                         
                         //enableButtons(true);
@@ -481,6 +512,7 @@ public class StateMachine extends StateMachineBase {
                     Object obj = evt.getSource();
                     //print("\nBLE Discovered: " + obj, true);
                     print("\nBLE Services Discovered ...", true);
+                    
                     addSubscriber();
                 }
 
@@ -490,7 +522,7 @@ public class StateMachine extends StateMachineBase {
             print(ex.getMessage(), false);
         }
 
-        // if we running on is add the subscriber here since the above bt call
+        // if we running on isos add the subscriber here since the above bt call
         // does nothing?
         if (Display.getInstance().getPlatformName().equals("ios")) {
             print("Adding subscriber for iOS Device", true);
@@ -619,7 +651,12 @@ public class StateMachine extends StateMachineBase {
             } catch (InterruptedException ex) { }
         }
         
-        sendText("PLAY\r\n");
+        if(useBT04) {
+            sendText("A0\r\n");
+        } else {
+            sendText("PLAY\r\n");
+        }
+        
         ffOrRewind = false;
     }
 
